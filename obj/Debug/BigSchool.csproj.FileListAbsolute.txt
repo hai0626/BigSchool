@@ -106,3 +106,9 @@ D:\BaiTap\THLapTrinhWeb\BigSchool\BigSchool\obj\Debug\BigSchool.csproj.CopyCompl
 D:\BaiTap\THLapTrinhWeb\BigSchool\BigSchool\obj\Debug\BigSchool.dll
 D:\BaiTap\THLapTrinhWeb\BigSchool\BigSchool\obj\Debug\BigSchool.pdb
 D:\BaiTap\THLapTrinhWeb\BigSchool\BigSchool\obj\Debug\BigSchool.csproj.AssemblyReference.cache
+D:\BaiTap\THLapTrinhWeb\BigSchool\BigSchool\bin\System.Net.Http.Formatting.dll
+D:\BaiTap\THLapTrinhWeb\BigSchool\BigSchool\bin\System.Web.Http.dll
+D:\BaiTap\THLapTrinhWeb\BigSchool\BigSchool\bin\System.Web.Http.WebHost.dll
+D:\BaiTap\THLapTrinhWeb\BigSchool\BigSchool\bin\System.Net.Http.Formatting.xml
+D:\BaiTap\THLapTrinhWeb\BigSchool\BigSchool\bin\System.Web.Http.xml
+D:\BaiTap\THLapTrinhWeb\BigSchool\BigSchool\bin\System.Web.Http.WebHost.xml
