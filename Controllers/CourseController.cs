@@ -30,7 +30,8 @@ namespace BigSchool.Controllers
             BigSchoolContext db = new BigSchoolContext();
 
             ModelState.Remove("LectureID");
-            if(!ModelState.IsValid){
+            if (!ModelState.IsValid)
+            {
                 objCourse.ListCategory = db.Categories.ToList();
                 return View("Create", objCourse);
             }
@@ -40,17 +41,18 @@ namespace BigSchool.Controllers
             db.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
-        public ActionResult Attending() { 
+        public ActionResult Attending()
+        {
             BigSchoolContext context = new BigSchoolContext();
-            ApplicationUser currentUser = System.Web.HttpContext.Current. GetOwinContext().GetUserManager<ApplicationUserManager>()
+            ApplicationUser currentUser = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>()
                            .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-            var listAttendances = context.Attendances.Where(p => p.Attendee == currentUser.Id).ToList(); 
-            var courses = new List<Course>(); 
+            var listAttendances = context.Attendances.Where(p => p.Attendee == currentUser.Id).ToList();
+            var courses = new List<Course>();
             foreach (Attendance temp in listAttendances)
             {
                 Course objCourse = temp.Course;
                 objCourse.LectureName = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>()
-                       .FindById(objCourse.LectureId).Name; 
+                       .FindById(objCourse.LectureId).Name;
                 courses.Add(objCourse);
             }
             return View(courses);
@@ -61,7 +63,7 @@ namespace BigSchool.Controllers
             ApplicationUser currentUser = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>()
                            .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
             var courses = context.Courses.Where(c => c.LectureId == currentUser.Id && c.DateTime > DateTime.Now).ToList();
-            foreach(Course i in courses)
+            foreach (Course i in courses)
             {
                 i.LectureName = currentUser.Name;
             }
@@ -79,14 +81,14 @@ namespace BigSchool.Controllers
         public ActionResult Edit(Course c)
         {
             Course dbUpdate = context.Courses.SingleOrDefault(p => p.Id == c.Id);
-            dbUpdate.ListCategory = context.Categories.ToList();
             if (dbUpdate != null)
             {
-                context.Courses.AddOrUpdate(dbUpdate);
+                context.Courses.AddOrUpdate(c);
                 context.SaveChanges();
             }
             return RedirectToAction("Mine");
         }
+        [HttpGet]
         public ActionResult Delete(int id)
         {
             Course c = context.Courses.SingleOrDefault(p => p.Id == id);
@@ -96,17 +98,31 @@ namespace BigSchool.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Course c)
         {
-            Attendance a = new Attendance();
-            Course dbDelete = context.Courses.SingleOrDefault(p => p.Id == c.Id);
-            if(a.CourseId == c.Id)
+            Attendance a = context.Attendances.Where(p => p.CourseId == c.Id).First();
+            if (a != null)
             {
                 MessageBox.Show("Không thể xóa vì đã có người tham dự");
             }
-            else if(dbDelete != null)
+            else
             {
-                context.Courses.Remove(dbDelete);
-                context.SaveChanges();
+                Course dbDelete = context.Courses.SingleOrDefault(p => p.Id == c.Id);
+                if (dbDelete != null)
+                {
+                    context.Courses.Remove(dbDelete);
+                    context.SaveChanges();
+                }
+               else
+                {
+                    MessageBox.Show("Không có khóa học");
+                }
+
             }
+            //Course dbDelete = context.Courses.SingleOrDefault(p => p.Id == c.Id);
+            //if (dbDelete != null)
+            //{
+            //    context.Courses.Remove(dbDelete);
+            //    context.SaveChanges();
+            //}
             return RedirectToAction("Mine");
         }
     }
