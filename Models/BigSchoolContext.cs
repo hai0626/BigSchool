@@ -12,9 +12,11 @@ namespace BigSchool.Models
         {
         }
 
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<Attendance> Attendances { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Course> Courses { get; set; }
+        public virtual DbSet<Following> Followings { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
