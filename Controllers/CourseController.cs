@@ -98,33 +98,33 @@ namespace BigSchool.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Course c)
         {
-            Attendance a = context.Attendances.Where(p => p.CourseId == c.Id).First();
-            if (a != null)
-            {
-                MessageBox.Show("Không thể xóa vì đã có người tham dự");
-            }
-            else
-            {
-                Course dbDelete = context.Courses.SingleOrDefault(p => p.Id == c.Id);
-                if (dbDelete != null)
-                {
-                    context.Courses.Remove(dbDelete);
-                    context.SaveChanges();
-                }
-               else
-                {
-                    MessageBox.Show("Không có khóa học");
-                }
+            //Attendance a = context.Attendances.Where(p => p.CourseId == c.Id).First();
+            //if (a != null)
+            //{
+            //    MessageBox.Show("Không thể xóa vì đã có người tham dự");
+            //}
+            //else
+            //{
+            //    Course dbDelete = context.Courses.SingleOrDefault(p => p.Id == c.Id);
+            //    if (dbDelete != null)
+            //    {
+            //        context.Courses.Remove(dbDelete);
+            //        context.SaveChanges();
+            //    }
+            //   else
+            //    {
+            //        MessageBox.Show("Không có khóa học");
+            //    }
 
+            //}
+            
+            Course dbDelete = context.Courses.SingleOrDefault(p => p.Id == c.Id);
+            if (dbDelete != null)
+            {
+                context.Courses.Remove(dbDelete);
+                context.SaveChanges();
             }
             return RedirectToAction("Mine");
-            //Course dbDelete = context.Courses.SingleOrDefault(p => p.Id == c.Id);
-            //if (dbDelete != null)
-            //{
-            //    context.Courses.Remove(dbDelete);
-            //    context.SaveChanges();
-            //}
-
         }
         public ActionResult LectureIamGoing()
         {
